@@ -1,0 +1,6 @@
+@GM.ShopFlow.Identity_HostAddress = http://localhost:5133
+
+GET {{GM.ShopFlow.Identity_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
