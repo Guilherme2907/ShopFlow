@@ -1,4 +1,4 @@
-using GM.ShopFlow.Identity.Data;
+using GM.ShopFlow.Identity.Context;
 using GM.ShopFlow.Identity.Endpoints;
 using GM.ShopFlow.Identity.Models;
 using GM.ShopFlow.Identity.Services.Auth;

@@ -1,5 +1,4 @@
-﻿using GM.ShopFlow.Identity.Dtos;
-using GM.ShopFlow.Identity.Dtos.Login;
+﻿using GM.ShopFlow.Identity.Dtos.Login;
 using GM.ShopFlow.Identity.Dtos.Refresh;
 
 namespace GM.ShopFlow.Identity.Services.Auth;
