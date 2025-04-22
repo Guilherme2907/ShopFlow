@@ -1,0 +1,6 @@
+@GM.ShopFlow.Product.Api_HostAddress = http://localhost:5109
+
+GET {{GM.ShopFlow.Product.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

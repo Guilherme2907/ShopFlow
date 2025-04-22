@@ -372,3 +372,4 @@ elastic/.docker/es*
 /src/presentation/GM.ProjectManagement.Api/appsettings.Development.json
 /Identity/GM.ShopFlow.Identity/appsettings.Development.json
 /Services/Order/src/GM.ShopFlow.Order.API/appsettings.Development.json
+/Services/Product/src/GM.ShopFlow.Product.Api/appsettings.Development.json
