@@ -1,4 +1,16 @@
+using GM.ShopFlow.Product.Api.Endpoints;
+using GM.ShopFlow.Product.Application.Interfaces;
+using GM.ShopFlow.Product.Application.UseCases.Category.CreateCategory;
+using GM.ShopFlow.Product.Application.UseCases.Category.GetCategories;
+using GM.ShopFlow.Product.Application.UseCases.Product.CreateProduct;
+using GM.ShopFlow.Product.Application.UseCases.Product.GetProductById;
+using GM.ShopFlow.Product.Application.UseCases.Product.GetProducts;
+using GM.ShopFlow.Product.Application.UseCases.Stock.RegisterProductStock;
+using GM.ShopFlow.Product.Application.UseCases.Stock.SupplyStock;
+using GM.ShopFlow.Product.Domain.SeedWork.Repositories;
+using GM.ShopFlow.Product.Infra.Data;
 using GM.ShopFlow.Product.Infra.Data.Context;
+using GM.ShopFlow.Product.Infra.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -30,9 +42,26 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddAuthorization();
+
 builder.Services.AddDbContext<ProductDbContext>(options =>
     options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"])
 );
+
+builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(typeof(CreateProduct).Assembly));
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IStockRepository, StockRepository>();
+builder.Services.AddScoped<ICreateCategory, CreateCategory>();
+builder.Services.AddScoped<IGetCategories, GetCategories>();
+builder.Services.AddScoped<ICreateProduct, CreateProduct>();
+builder.Services.AddScoped<IGetProductById, GetProductById>();
+builder.Services.AddScoped<IGetProducts, GetProducts>();
+builder.Services.AddScoped<IRegisterProductStock, RegisterProductStock>();
+builder.Services.AddScoped<ISupplyStock, SupplyStock>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,5 +75,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseHttpsRedirection();
+
+app.MapCategoryEndpoints()
+    .MapProductEndpoints()
+    .MapStockEndpoints();
 
 app.Run();
