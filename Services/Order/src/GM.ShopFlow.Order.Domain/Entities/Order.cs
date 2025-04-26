@@ -1,4 +1,5 @@
 ﻿using GM.ShopFlow.Order.Domain.Enums;
+using GM.ShopFlow.Order.Domain.Events;
 using GM.ShopFlow.Order.Domain.SeedWork;
 using GM.ShopFlow.Order.Domain.States.Order;
 
@@ -6,13 +7,11 @@ namespace GM.ShopFlow.Order.Domain.Entities;
 
 public class Order : Entity
 {
-    public OrderStatus Status
-    {
-        get => _state.Status;
-        private set;
-    }
+    public OrderStatus Status{ get; private set;}
 
     private OrderState _state;
+
+    private OrderState State => _state ??= OrderState.FromStatus(Status);
 
     public float PercentageDiscount { get; private set; }
 
@@ -35,6 +34,8 @@ public class Order : Entity
         Total = CalculateTotal();
 
         Validate();
+
+        RaiseEvent(new OrderCreatedDomainEvent());
     }
 
     private Order() { }
@@ -69,29 +70,14 @@ public class Order : Entity
     {
         PercentageDiscount = percentageDiscount;
     }
-
-    public void Create()
-    {
-        _state.Create(this);
-    }
-
-    public void Cancel()
-    {
-        _state.Cancel(this);
-    }
-
-    public void Send()
-    {
-        _state.Send(this);
-    }
-
-    public void Finish()
-    {
-        _state.Finish(this);
-    }
+    public void Create() => State.Create(this);
+    public void Cancel() => State.Cancel(this);
+    public void Send() => State.Send(this);
+    public void Finish() => State.Finish(this);
 
     internal void TransitionTo(OrderState state)
     {
         _state = state;
+        Status = state.Status;
     }
 }
