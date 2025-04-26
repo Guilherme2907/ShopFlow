@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GM.ShopFlow.Product.Application\GM.ShopFlow.Product.Application.csproj" />
     <ProjectReference Include="..\GM.ShopFlow.Product.Domain\GM.ShopFlow.Product.Domain.csproj" />
   </ItemGroup>
 
