@@ -26,4 +26,16 @@ public abstract class OrderState
     {
         throw new InvalidOperationException($"Cannot finish the order with status {order.Status}");
     }
+
+    public static OrderState FromStatus(OrderStatus status)
+    {
+        return status switch
+        {
+            OrderStatus.Created => new CreatedOrderState(),
+            OrderStatus.Canceled => new CanceledOrderState(),
+            OrderStatus.Shipping => new ShippedOrderState(),
+            OrderStatus.Finished => new FinishedOrderState(),
+            _ => throw new InvalidOperationException("Invalid status")
+        };
+    }
 }
