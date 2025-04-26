@@ -4,7 +4,7 @@ public abstract class Entity
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    public DateTime CreatedDate { get; } = DateTime.UtcNow;
+    public DateTime CreatedDate { get; private set; } = DateTime.UtcNow;
 
     public IList<DomainEvent> Events { get; private set; } = [];
 
