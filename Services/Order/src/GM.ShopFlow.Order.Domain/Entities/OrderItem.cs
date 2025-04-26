@@ -14,18 +14,22 @@ public class OrderItem : Entity
 
     public string ProductName { get; private set; }
 
-    public decimal Price { get; private set; }
+    public decimal ProductPrice { get; private set; }
 
     public decimal Total { get; private set; }
 
-    public OrderItem(int quantity, Order order, Guid productId, string productName, decimal price, decimal total)
+    public OrderItem(int quantity, Guid productId, string productName, decimal productPrice)
     {
         Quantity = quantity;
-        Order = order;
         ProductId = productId;
         ProductName = productName;
-        Price = price;
-        Total = total;
+        ProductPrice = productPrice;
+        Total = CalculateTotal();
+    }
+
+    private decimal CalculateTotal()
+    {
+        return Quantity * ProductPrice;
     }
 
     private OrderItem() { }
