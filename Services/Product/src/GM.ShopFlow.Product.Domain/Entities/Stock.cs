@@ -1,4 +1,5 @@
-﻿using GM.ShopFlow.Product.Domain.SeedWork;
+﻿using GM.ShopFlow.Product.Domain.Events;
+using GM.ShopFlow.Product.Domain.SeedWork;
 
 namespace GM.ShopFlow.Product.Domain.Entities;
 
@@ -6,15 +7,13 @@ public class Stock : Entity
 {
     public Product Product { get; private set; }
 
-    public Guid ProductId { get; private set; } 
+    public Guid ProductId { get; private set; }
 
-    public int Quantity { get; private set; }
+    public int Quantity { get; private set; } = 0;
 
-    public Stock(Guid productId, Product product, int quantity)
+    public Stock(Product product)
     {
-        ProductId = productId;
         Product = product;
-        Quantity = quantity;
     }
 
     private Stock() { }
@@ -22,6 +21,8 @@ public class Stock : Entity
     public void AddProductToStock(int quantity)
     {
         Quantity += quantity;
+
+        RaiseEvent(new StockUpdatedDomainEvent());
     }
 
     public void RemoveProductFromStock(int quantity)
@@ -32,5 +33,7 @@ public class Stock : Entity
         }
 
         Quantity -= quantity;
+
+        RaiseEvent(new StockUpdatedDomainEvent());
     }
 }
