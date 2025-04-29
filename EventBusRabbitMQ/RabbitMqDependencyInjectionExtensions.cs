@@ -15,16 +15,19 @@ public static class RabbitMqDependencyInjectionExtensions
         builder.AddRabbitMQClient(connectionName, configureConnectionFactory: factory =>
         {
             factory.DispatchConsumersAsync = true;
+            factory.Port = 5672;
+            factory.UserName = "gui";
+            factory.Password = "123";
         });
 
         // Options support
         builder.Services.Configure<EventBusOptions>(builder.Configuration.GetSection(SectionName));
 
         // Abstractions on top of the core client API
-        builder.Services.AddSingleton<IEventBus, RabbitMQEventBus>();
+        builder.Services.AddSingleton<IEventBus, RabbitMQEventBusProducer>();
 
         // Start consuming messages as soon as the application starts
-        builder.Services.AddSingleton<RabbitMQEventBus>();
+        builder.Services.AddHostedService<RabbitMQEventBusConsumer>();
 
         return new EventBusBuilder(builder.Services);
     }
