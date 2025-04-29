@@ -5,13 +5,13 @@ namespace EventBus.Abstractions;
 public interface IIntegrationEventHandler<in TIntegrationEvent> : IIntegrationEventHandler
     where TIntegrationEvent : IntegrationEvent
 {
-    Task HandleAsync(TIntegrationEvent @event, CancellationToken cancellationToken);
+    Task HandleAsync(TIntegrationEvent @event);
 
-    Task IIntegrationEventHandler.HandleAsync(IntegrationEvent @event, CancellationToken cancellationToken)
-        => HandleAsync(@event, cancellationToken);
+    Task IIntegrationEventHandler.HandleAsync(IntegrationEvent @event)
+        => HandleAsync((TIntegrationEvent)@event);
 }
 
 public interface IIntegrationEventHandler
 {
-    Task HandleAsync(IntegrationEvent @event, CancellationToken cancellationToken);
+    Task HandleAsync(IntegrationEvent @event);
 }
