@@ -73,6 +73,7 @@ public class JwtService(IConfiguration configuration, UserManager<Model.User> us
         {
             new(ClaimTypes.Name, user.UserName!),
             new(ClaimTypes.NameIdentifier, user.Id),
+            new(ClaimTypes.Email, user.Email),
             new("loginTimeStamp", DateTime.UtcNow.ToString())
         };
 

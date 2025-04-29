@@ -35,9 +35,9 @@ public static class UserEndpoints
 
     public static RouteGroupBuilder MapAddRole(this RouteGroupBuilder builder)
     {
-        builder.MapPost("/{userName}/roles", async (string userName, [FromServices] UserManager<User> userManager, [FromBody] AddRoleRequest roleRequest) =>
+        builder.MapPost("/{userId}/roles", async (Guid userId, [FromServices] UserManager<User> userManager, [FromBody] AddRoleRequest roleRequest) =>
         {
-            var user = await userManager.FindByNameAsync(userName);
+            var user = await userManager.FindByIdAsync(userId.ToString());
 
             await userManager.AddToRoleAsync(user!, roleRequest.Name);
 

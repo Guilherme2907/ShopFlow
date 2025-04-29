@@ -1,4 +1,4 @@
 ﻿namespace GM.ShopFlow.Identity.Dtos.User;
 
-public record RegisterUserRequest(string UserName, string Password);
+public record RegisterUserRequest(string UserName, string Password, string Email);
 

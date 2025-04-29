@@ -15,7 +15,8 @@ public class UserService(
         var user = new Model.User
         {
             UserName = request.UserName,
-            PasswordHash = request.Password
+            PasswordHash = request.Password,
+            Email = request.Email,
         };
 
         var result = await _userManager.CreateAsync(user, user.PasswordHash!);
