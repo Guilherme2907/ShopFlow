@@ -17,7 +17,7 @@ public class OrderTypeConfiguration : IEntityTypeConfiguration<Entity.Order>
                 fromDb => (OrderStatus)Enum.Parse(typeof(OrderStatus), fromDb)
             );
 
-        entity.Ignore(e => e.Events);
+        entity.Ignore(e => e.DomainEvents);
 
         entity.HasMany(e => e.Items)
             .WithOne(e => e.Order)

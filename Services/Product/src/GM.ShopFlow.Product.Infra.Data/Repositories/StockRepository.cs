@@ -22,8 +22,21 @@ public class StockRepository(ProductDbContext context) : IStockRepository
         return stock is null ? throw new InvalidDataException($"There is no stock with product Id {productId}") : stock;
     }
 
+    public async Task<IEnumerable<Stock>> GetByProductIdsAsync(IEnumerable<Guid> productIds, CancellationToken cancellationToken)
+    {
+        return await Stocks.Where(s => productIds.Contains(s.ProductId))
+                                     .ToListAsync(cancellationToken);
+    }
+
     public async Task UpdateAsync(Stock stock, CancellationToken cancellationToken)
     {
         await Task.FromResult(Stocks.Update(stock));
+    }
+
+    public Task UpdateAsync(IEnumerable<Stock> stocks, CancellationToken cancellationToken)
+    {
+        Stocks.UpdateRange(stocks);
+
+        return Task.CompletedTask;
     }
 }

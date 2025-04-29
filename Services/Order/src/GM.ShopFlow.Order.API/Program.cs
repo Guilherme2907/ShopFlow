@@ -10,7 +10,16 @@ using GM.ShopFlow.Order.Infra.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using EventBusRabbitMQ;
+using EventBus.Extensions;
 using System.Text;
+using EventBus.Abstractions;
+using GM.ShopFlow.Order.Application.IntegrationsEvents.Events;
+using GM.ShopFlow.Order.Application.IntegrationsEvents.EventHandlers;
+using GM.ShopFlow.Order.Infra.ExternalServices.Services;
+using GM.ShopFlow.Order.Infra.ExternalServices.Interfaces;
+using GM.ShopFlow.Order.Infra.ExternalServices.Apis;
+using RestEase;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,7 +60,18 @@ builder.Services.AddScoped<ICreateOrder, CreateOrder>();
 builder.Services.AddScoped<IGetOrders, GetOrders>();
 builder.Services.AddScoped<ICreateCustomer, CreateCustomer>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
+builder.Services.AddSingleton(RestClient.For<IUserApi>("https://localhost:7228/api/users"));
+builder.Services.AddSingleton(RestClient.For<IAuthApi>("https://localhost:7228/api/auth"));
+
+builder.Services.AddHttpContextAccessor();
+
+var eventBuilder =  builder.AddRabbitMqEventBus("localhost");
+
+eventBuilder.AddSubscription<CustomerCreatedIntegrationEvent, CustomerCreatedIntegrationEventHandler>();
+eventBuilder.AddSubscription<StockUpdatedIntegrationEvent, StockUpdatedIntegrationEventHandler>();
 
 var app = builder.Build();
 

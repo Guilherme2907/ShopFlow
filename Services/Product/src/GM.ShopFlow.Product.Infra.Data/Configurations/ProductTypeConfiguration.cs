@@ -20,6 +20,6 @@ internal class ProductTypeConfiguration : IEntityTypeConfiguration<Entity.Produc
         entity.HasMany(c => c.Categories)
             .WithMany();
 
-        entity.Ignore(e => e.Events);
+        entity.Ignore(e => e.DomainEvents);
     }
 }

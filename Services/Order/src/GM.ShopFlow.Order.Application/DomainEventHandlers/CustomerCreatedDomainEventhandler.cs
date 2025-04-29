@@ -1,12 +1,16 @@
-﻿using GM.ShopFlow.Order.Domain.Events;
+﻿using EventBus.Abstractions;
+using GM.ShopFlow.Order.Application.IntegrationsEvents.Events;
+using GM.ShopFlow.Order.Domain.DomainEvents;
 using MediatR;
 
 namespace GM.ShopFlow.Order.Application.DomainEventHandlers;
 
-public class CustomerCreatedDomainEventhandler : INotificationHandler<CustomerCreatedDomainEvent>
+public class CustomerCreatedDomainEventhandler(IEventBus eventBus) : INotificationHandler<CustomerCreatedDomainEvent>
 {
-    public Task Handle(CustomerCreatedDomainEvent notification, CancellationToken cancellationToken)
+    private readonly IEventBus _eventBus = eventBus;
+
+    public async Task Handle(CustomerCreatedDomainEvent domainEvent, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await _eventBus.PublishAsync(new CustomerCreatedIntegrationEvent(domainEvent.Customer.UserId), cancellationToken);
     }
 }

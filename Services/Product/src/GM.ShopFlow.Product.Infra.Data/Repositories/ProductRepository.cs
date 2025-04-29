@@ -2,6 +2,7 @@
 using GM.ShopFlow.Product.Domain.SeedWork.Repositories;
 using GM.ShopFlow.Product.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using GM.ShopFlow.Product.Domain.Entities;
 
 namespace GM.ShopFlow.Product.Infra.Data.Repositories;
 public class ProductRepository(ProductDbContext context) : IProductRepository
@@ -13,6 +14,11 @@ public class ProductRepository(ProductDbContext context) : IProductRepository
     public async Task CreateAsync(Entities.Product product, CancellationToken cancellationToken)
     {
         await Products.AddAsync(product, cancellationToken);
+    }  
+    
+    public async Task UpdateAsync(Entities.Product product, CancellationToken cancellationToken)
+    {
+        await Task.FromResult(Products.Update(product));
     }
 
     public async Task<List<Entities.Product>> GetAsync(CancellationToken cancellationToken)

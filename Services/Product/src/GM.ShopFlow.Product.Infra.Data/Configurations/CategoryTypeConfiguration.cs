@@ -14,6 +14,6 @@ internal class CategoryTypeConfiguration : IEntityTypeConfiguration<Category>
             .HasColumnName("Name")
             .IsRequired();
 
-        entity.Ignore(e => e.Events);
+        entity.Ignore(e => e.DomainEvents);
     }
 }

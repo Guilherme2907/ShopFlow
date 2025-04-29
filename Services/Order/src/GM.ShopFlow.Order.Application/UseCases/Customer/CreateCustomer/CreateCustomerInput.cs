@@ -4,6 +4,5 @@ namespace GM.ShopFlow.Order.Application.UseCases.Customer.CreateCustomer;
 
 public record CreateCustomerInput(
     string Name,
-    string CpfOrCnpj,
-    string Email
+    string CpfOrCnpj
 ) : IRequest;

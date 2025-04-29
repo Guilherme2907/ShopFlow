@@ -1,5 +1,5 @@
-﻿using GM.ShopFlow.Order.Domain.Enums;
-using GM.ShopFlow.Order.Domain.Events;
+﻿using GM.ShopFlow.Order.Domain.DomainEvents;
+using GM.ShopFlow.Order.Domain.Enums;
 using GM.ShopFlow.Order.Domain.SeedWork;
 using GM.ShopFlow.Order.Domain.States.Order;
 
@@ -35,7 +35,7 @@ public class Order : Entity
 
         Validate();
 
-        RaiseEvent(new OrderCreatedDomainEvent());
+        RaiseEvent(new OrderCreatedDomainEvent(this));
     }
 
     private Order() { }

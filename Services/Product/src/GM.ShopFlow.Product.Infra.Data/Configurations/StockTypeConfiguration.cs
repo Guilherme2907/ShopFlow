@@ -22,6 +22,6 @@ internal class StockTypeConfiguration : IEntityTypeConfiguration<Stock>
 
         entity.HasOne(e => e.Product);
 
-        entity.Ignore(e => e.Events);
+        entity.Ignore(e => e.DomainEvents);
     }
 }

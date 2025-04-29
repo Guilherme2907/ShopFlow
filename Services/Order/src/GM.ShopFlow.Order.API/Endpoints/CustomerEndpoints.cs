@@ -2,7 +2,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
 
 namespace GM.ShopFlow.Order.API.Endpoints;
 
@@ -15,7 +14,7 @@ public static class CustomerEndpoints
             .WithTags("Customers")
             .WithOpenApi();
 
-        group.MapPost("/", CreateCustomer);
+        group.MapPost("/", CreateCustomer).RequireAuthorization();
 
         return builder;
     }

@@ -10,6 +10,6 @@ public class OrderItemTypeConfiguration : IEntityTypeConfiguration<OrderItem>
     {
         entity.ToTable("OrderItems");
 
-        entity.Ignore(e => e.Events);
+        entity.Ignore(e => e.DomainEvents);
     }
 }

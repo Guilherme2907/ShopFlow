@@ -6,8 +6,10 @@ namespace GM.ShopFlow.Order.Application.IntegrationsEvents.EventHandlers;
 public class StockUpdatedIntegrationEventHandler
     : IIntegrationEventHandler<StockUpdatedIntegrationEvent>
 {
-    public Task HandleAsync(StockUpdatedIntegrationEvent @event, CancellationToken cancellationToken)
+    public Task HandleAsync(StockUpdatedIntegrationEvent @event)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Stock updated");
+
+        return Task.CompletedTask;
     }
 }

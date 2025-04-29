@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus", "EventBus\EventB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBusRabbitMQ", "EventBusRabbitMQ\EventBusRabbitMQ.csproj", "{1457D869-AC09-4921-AE72-60AC7C9FA3EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GM.ShopFlow.Order.Infra.ExternalServices", "Services\Order\src\GM.ShopFlow.Order.Infra.ExternalServices\GM.ShopFlow.Order.Infra.ExternalServices.csproj", "{2DE340DC-F62F-44F6-8CA8-E229ACBD987E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{1457D869-AC09-4921-AE72-60AC7C9FA3EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1457D869-AC09-4921-AE72-60AC7C9FA3EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1457D869-AC09-4921-AE72-60AC7C9FA3EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DE340DC-F62F-44F6-8CA8-E229ACBD987E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DE340DC-F62F-44F6-8CA8-E229ACBD987E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DE340DC-F62F-44F6-8CA8-E229ACBD987E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DE340DC-F62F-44F6-8CA8-E229ACBD987E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,5 +111,6 @@ Global
 		{FF8B584F-C103-47FF-BEC2-CC9DF8F46444} = {9538ED0D-E039-4039-8866-E7D2A696F1D2}
 		{2256C6BC-13D7-441E-B23D-A54FE227F23D} = {6F7A6589-DFD0-49D9-B122-6330C90DAEEC}
 		{9342DFB5-369D-41EE-9F2F-797858A9BABE} = {9538ED0D-E039-4039-8866-E7D2A696F1D2}
+		{2DE340DC-F62F-44F6-8CA8-E229ACBD987E} = {9538ED0D-E039-4039-8866-E7D2A696F1D2}
 	EndGlobalSection
 EndGlobal

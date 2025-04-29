@@ -1,13 +1,15 @@
 ﻿using EventBus.Abstractions;
 using GM.ShopFlow.Order.Application.IntegrationsEvents.Events;
+using GM.ShopFlow.Order.Application.Interfaces;
 
 namespace GM.ShopFlow.Order.Application.IntegrationsEvents.EventHandlers;
 
-public class CustomerCreatedIntegrationEventHandler
-    : IIntegrationEventHandler<CustomerCreatedIntegrationEvent>
+public class CustomerCreatedIntegrationEventHandler(IUserService userService) : IIntegrationEventHandler<CustomerCreatedIntegrationEvent>
 {
-    public Task HandleAsync(CustomerCreatedIntegrationEvent @event, CancellationToken cancellationToken)
+    private readonly IUserService _userService = userService;
+
+    public async Task HandleAsync(CustomerCreatedIntegrationEvent @event)
     {
-        throw new NotImplementedException();
+        await _userService.AddRoleCustomerToUserAsync(@event.UserId);
     }
 }

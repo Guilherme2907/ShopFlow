@@ -22,7 +22,7 @@ public class Stock : Entity
     {
         Quantity += quantity;
 
-        RaiseEvent(new StockUpdatedDomainEvent());
+        RaiseDomainEvent(new StockUpdatedDomainEvent(this));
     }
 
     public void RemoveProductFromStock(int quantity)
@@ -34,6 +34,6 @@ public class Stock : Entity
 
         Quantity -= quantity;
 
-        RaiseEvent(new StockUpdatedDomainEvent());
+        RaiseDomainEvent(new StockUpdatedDomainEvent(this));
     }
 }

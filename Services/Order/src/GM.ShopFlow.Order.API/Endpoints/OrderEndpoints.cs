@@ -15,7 +15,8 @@ public static class OrderEndpoints
             .WithTags("Orders")
             .WithOpenApi();
 
-        group.MapPost("/", CreateOrder);
+        group.MapPost("/", CreateOrder).RequireAuthorization(policy => policy.RequireRole("Customer"));
+
         group.MapGet("/{customerId}", GetOrders);
 
         return builder;

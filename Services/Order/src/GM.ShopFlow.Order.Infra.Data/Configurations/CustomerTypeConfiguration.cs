@@ -26,6 +26,6 @@ public class CustomerTypeConfiguration : IEntityTypeConfiguration<Customer>
             c.HasIndex(e => e.Value).IsUnique();
         });
 
-        entity.Ignore(e => e.Events);
+        entity.Ignore(e => e.DomainEvents);
     }
 }

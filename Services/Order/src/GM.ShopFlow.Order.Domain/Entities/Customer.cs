@@ -1,4 +1,4 @@
-﻿using GM.ShopFlow.Order.Domain.Events;
+﻿using GM.ShopFlow.Order.Domain.DomainEvents;
 using GM.ShopFlow.Order.Domain.SeedWork;
 using GM.ShopFlow.Order.Domain.ValueObjects;
 
@@ -6,6 +6,7 @@ namespace GM.ShopFlow.Order.Domain.Entities;
 
 public class Customer : Entity
 {
+    public Guid UserId { get; private set; }
     public string Name { get; private set; }
 
     public CpfOrCnpj CpfOrCnpj { get; private set; }
@@ -16,13 +17,14 @@ public class Customer : Entity
 
     public IReadOnlyList<Order> Orders => _orders.AsReadOnly();
 
-    public Customer(string name, CpfOrCnpj cpfOrCnpj, Email email)
+    public Customer(Guid userId, string name, CpfOrCnpj cpfOrCnpj, Email email)
     {
+        UserId = userId;
         Name = name;
         CpfOrCnpj = cpfOrCnpj;
         Email = email;
 
-        RaiseEvent(new CustomerCreatedDomainEvent());
+        RaiseEvent(new CustomerCreatedDomainEvent(this));
     }
 
     private Customer() { }

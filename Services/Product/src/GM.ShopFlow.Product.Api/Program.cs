@@ -14,70 +14,83 @@ using GM.ShopFlow.Product.Infra.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using EventBusRabbitMQ;
+using EventBus.Extensions;
 using System.Text;
+using GM.ShopFlow.Product.Application.IntegrationsEvents.Events;
+using GM.ShopFlow.Product.Application.IntegrationsEvents.EventHandlers;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddAuthentication(options =>
+internal class Program
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
+    private static void Main(string[] args)
     {
-        ValidateIssuer = true,
-        ValidIssuer = builder.Configuration["JwtConfig:Issuer"]!,
-        ValidAudience = builder.Configuration["JwtConfig:Audience"]!,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtConfig:SymmetricSecurityKey"]!)),
-    };
-});
+        var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthorization();
+        // Add services to the container.
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ProductDbContext>(options =>
-    options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"])
-);
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = builder.Configuration["JwtConfig:Issuer"]!,
+                ValidAudience = builder.Configuration["JwtConfig:Audience"]!,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtConfig:SymmetricSecurityKey"]!)),
+            };
+        });
 
-builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(typeof(CreateProduct).Assembly));
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IStockRepository, StockRepository>();
-builder.Services.AddScoped<ICreateCategory, CreateCategory>();
-builder.Services.AddScoped<IGetCategories, GetCategories>();
-builder.Services.AddScoped<ICreateProduct, CreateProduct>();
-builder.Services.AddScoped<IGetProductById, GetProductById>();
-builder.Services.AddScoped<IGetProducts, GetProducts>();
-builder.Services.AddScoped<IRegisterProductStock, RegisterProductStock>();
-builder.Services.AddScoped<ISupplyStock, SupplyStock>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+        builder.Services.AddAuthorization();
 
+        builder.Services.AddDbContext<ProductDbContext>(options =>
+            options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"])
+        );
 
-var app = builder.Build();
+        builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(typeof(CreateProduct).Assembly));
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+        builder.Services.AddScoped<IStockRepository, StockRepository>();
+        builder.Services.AddScoped<ICreateCategory, CreateCategory>();
+        builder.Services.AddScoped<IGetCategories, GetCategories>();
+        builder.Services.AddScoped<ICreateProduct, CreateProduct>();
+        builder.Services.AddScoped<IGetProductById, GetProductById>();
+        builder.Services.AddScoped<IGetProducts, GetProducts>();
+        builder.Services.AddScoped<IRegisterProductStock, RegisterProductStock>();
+        builder.Services.AddScoped<ISupplyStock, SupplyStock>();
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+        var eventBuilder = builder.AddRabbitMqEventBus("localhost");
+
+        eventBuilder.AddSubscription<OrderCreatedIntegrationEvent, OrderCreatedIntegrationEventHandler>();
+
+        var app = builder.Build();
+
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.UseHttpsRedirection();
+
+        app.MapCategoryEndpoints()
+            .MapProductEndpoints()
+            .MapStockEndpoints();
+
+        app.Run();
+    }
 }
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.UseHttpsRedirection();
-
-app.MapCategoryEndpoints()
-    .MapProductEndpoints()
-    .MapStockEndpoints();
-
-app.Run();

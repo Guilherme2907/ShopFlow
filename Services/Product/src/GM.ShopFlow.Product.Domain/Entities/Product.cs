@@ -22,7 +22,7 @@ public class Product : Entity
 
         Validate();
 
-        RaiseEvent(new ProductCreatedDomainEvent());
+        RaiseDomainEvent(new ProductCreatedDomainEvent(this));
     }
 
     private void Validate()
@@ -44,13 +44,8 @@ public class Product : Entity
         _categories.Add(category);
     }
 
-    public void AddQuantity(int quantity)
+    public void SetQuantity(int quantity)
     {
-        Quantity += quantity;
+        Quantity = quantity;
     }  
-    
-    public void WithdrawQuantity(int quantity)
-    {
-        Quantity -= quantity;
-    }
 }

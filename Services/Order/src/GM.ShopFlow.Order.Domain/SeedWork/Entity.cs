@@ -6,15 +6,15 @@ public abstract class Entity
 
     public DateTime CreatedDate { get; private set; } = DateTime.UtcNow;
 
-    public IList<DomainEvent> Events { get; private set; } = [];
+    public IList<DomainEvent> DomainEvents { get; private set; } = [];
 
     public void RaiseEvent(DomainEvent domainEvent)
     {
-        Events.Add(domainEvent);
+        DomainEvents.Add(domainEvent);
     }
 
     public void ClearEvents()
     {
-        Events.Clear();
+        DomainEvents.Clear();
     }
 }

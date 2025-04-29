@@ -4,9 +4,11 @@ namespace GM.ShopFlow.Product.Domain.SeedWork.Repositories;
 
 public interface IProductRepository
 {
-    Task CreateAsync(Entities.Product product, CancellationToken cancellationToken);
+    Task CreateAsync(Entities.Product product, CancellationToken cancellationToken = default);
 
-    Task<List<Entities.Product>> GetAsync(CancellationToken cancellationToken);
+    Task UpdateAsync(Entities.Product product, CancellationToken cancellationToken = default);
 
-    Task<Entities.Product> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<List<Entities.Product>> GetAsync(CancellationToken cancellationToken = default);
+
+    Task<Entities.Product> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 }
