@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBusRabbitMQ", "EventBu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GM.ShopFlow.Order.Infra.ExternalServices", "Services\Order\src\GM.ShopFlow.Order.Infra.ExternalServices\GM.ShopFlow.Order.Infra.ExternalServices.csproj", "{2DE340DC-F62F-44F6-8CA8-E229ACBD987E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GM.ShopFlow.ApiGateway", "GM.ShopFlow.ApiGateway\GM.ShopFlow.ApiGateway.csproj", "{F03B2AC6-D82B-49A6-BE1C-F6464AA3F25A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{2DE340DC-F62F-44F6-8CA8-E229ACBD987E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DE340DC-F62F-44F6-8CA8-E229ACBD987E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DE340DC-F62F-44F6-8CA8-E229ACBD987E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F03B2AC6-D82B-49A6-BE1C-F6464AA3F25A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F03B2AC6-D82B-49A6-BE1C-F6464AA3F25A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F03B2AC6-D82B-49A6-BE1C-F6464AA3F25A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F03B2AC6-D82B-49A6-BE1C-F6464AA3F25A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

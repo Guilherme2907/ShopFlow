@@ -1,15 +1,16 @@
 ﻿using EventBus.Abstractions;
 using GM.ShopFlow.Order.Application.IntegrationsEvents.Events;
+using GM.ShopFlow.Order.Application.Interfaces;
 
 namespace GM.ShopFlow.Order.Application.IntegrationsEvents.EventHandlers;
 
-public class StockUpdatedIntegrationEventHandler
+public class StockUpdatedIntegrationEventHandler(IProductStockRepository productStockRepository)
     : IIntegrationEventHandler<StockUpdatedIntegrationEvent>
 {
-    public Task HandleAsync(StockUpdatedIntegrationEvent @event)
-    {
-        Console.WriteLine("Stock updated");
+    private readonly IProductStockRepository _productStockRepository = productStockRepository;
 
-        return Task.CompletedTask;
+    public async Task HandleAsync(StockUpdatedIntegrationEvent @event)
+    {
+        await _productStockRepository.SetStockAsync(@event.ProductId.ToString(), @event.Quantity);
     }
 }

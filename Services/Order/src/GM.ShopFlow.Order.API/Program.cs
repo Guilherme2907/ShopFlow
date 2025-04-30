@@ -13,13 +13,14 @@ using Microsoft.IdentityModel.Tokens;
 using EventBusRabbitMQ;
 using EventBus.Extensions;
 using System.Text;
-using EventBus.Abstractions;
 using GM.ShopFlow.Order.Application.IntegrationsEvents.Events;
 using GM.ShopFlow.Order.Application.IntegrationsEvents.EventHandlers;
 using GM.ShopFlow.Order.Infra.ExternalServices.Services;
 using GM.ShopFlow.Order.Infra.ExternalServices.Interfaces;
 using GM.ShopFlow.Order.Infra.ExternalServices.Apis;
 using RestEase;
+using StackExchange.Redis;
+using GM.ShopFlow.Order.Application.SettingModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,9 +63,18 @@ builder.Services.AddScoped<ICreateCustomer, CreateCustomer>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IProductStockRepository, RedisProductStockRepository>();
+builder.Services.AddScoped<IProductStockService, ProductStockService>();
+
+builder.Services.Configure<AuthApiSettings>(builder.Configuration.GetSection("AuthApiSettings"));
 
 builder.Services.AddSingleton(RestClient.For<IUserApi>("https://localhost:7228/api/users"));
 builder.Services.AddSingleton(RestClient.For<IAuthApi>("https://localhost:7228/api/auth"));
+builder.Services.AddSingleton(RestClient.For<IProductApi>("https://localhost:7262/api/products"));
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(
+    sp => ConnectionMultiplexer.Connect("localhost:6379") 
+);
 
 builder.Services.AddHttpContextAccessor();
 
@@ -89,6 +99,13 @@ app.UseAuthorization();
 
 app.MapOrderEndpoints()
     .MapCustomerEndpoints();
+
+app.Lifetime.ApplicationStarted.Register(async () =>
+{
+    using var scope = app.Services.CreateScope();
+    var productService = scope.ServiceProvider.GetRequiredService<IProductStockService>();
+    await productService.PopulateProductStocksDbAsync();
+});
 
 app.Run();
 
