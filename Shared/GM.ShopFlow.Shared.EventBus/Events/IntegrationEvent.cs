@@ -1,4 +1,4 @@
-﻿namespace EventBus.Events;
+﻿namespace GM.ShopFlow.Shared.EventBus.Events;
 
 public abstract class IntegrationEvent
 {

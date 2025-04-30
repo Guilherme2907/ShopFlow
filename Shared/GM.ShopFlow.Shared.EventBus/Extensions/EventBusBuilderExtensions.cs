@@ -1,10 +1,10 @@
-﻿using EventBus.Abstractions;
-using EventBus.Events;
+﻿using GM.ShopFlow.Shared.EventBus.Abstractions;
+using GM.ShopFlow.Shared.EventBus.Events;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 
-namespace EventBus.Extensions;
+namespace GM.ShopFlow.Shared.EventBus.Extensions;
 
 public static class EventBusBuilderExtensions
 {

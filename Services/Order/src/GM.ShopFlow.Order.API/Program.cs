@@ -10,8 +10,6 @@ using GM.ShopFlow.Order.Infra.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using EventBusRabbitMQ;
-using EventBus.Extensions;
 using System.Text;
 using GM.ShopFlow.Order.Application.IntegrationsEvents.Events;
 using GM.ShopFlow.Order.Application.IntegrationsEvents.EventHandlers;
@@ -21,6 +19,8 @@ using GM.ShopFlow.Order.Infra.ExternalServices.Apis;
 using RestEase;
 using StackExchange.Redis;
 using GM.ShopFlow.Order.Application.SettingModels;
+using GM.ShopFlow.Shared.EventBus.Extensions;
+using GM.ShopFlow.Shared.EventBusRabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
 

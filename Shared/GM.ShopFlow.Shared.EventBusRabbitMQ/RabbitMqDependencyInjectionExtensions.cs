@@ -1,8 +1,8 @@
-﻿using EventBus.Abstractions;
+﻿using GM.ShopFlow.Shared.EventBus.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace EventBusRabbitMQ;
+namespace GM.ShopFlow.Shared.EventBusRabbitMQ;
 
 public static class RabbitMqDependencyInjectionExtensions
 {

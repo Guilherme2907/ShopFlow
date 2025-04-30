@@ -1,6 +1,6 @@
-﻿using EventBus.Abstractions;
-using GM.ShopFlow.Order.Application.IntegrationsEvents.Events;
+﻿using GM.ShopFlow.Order.Application.IntegrationsEvents.Events;
 using GM.ShopFlow.Order.Domain.DomainEvents;
+using GM.ShopFlow.Shared.EventBus.Abstractions;
 using MediatR;
 
 namespace GM.ShopFlow.Order.Application.DomainEventHandlers;

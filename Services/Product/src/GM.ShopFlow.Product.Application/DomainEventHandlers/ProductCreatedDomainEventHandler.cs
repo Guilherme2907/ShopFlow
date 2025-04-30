@@ -1,5 +1,4 @@
-﻿using EventBus.Abstractions;
-using GM.ShopFlow.Product.Application.Interfaces;
+﻿using GM.ShopFlow.Product.Application.Interfaces;
 using GM.ShopFlow.Product.Domain.Entities;
 using GM.ShopFlow.Product.Domain.Events;
 using GM.ShopFlow.Product.Domain.SeedWork.Repositories;

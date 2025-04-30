@@ -17,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\EventBusRabbitMQ\EventBusRabbitMQ.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\GM.ShopFlow.Shared.EventBusRabbitMQ\GM.ShopFlow.Shared.EventBusRabbitMQ.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\GM.ShopFlow.Shared.EventBus\GM.ShopFlow.Shared.EventBus.csproj" />
     <ProjectReference Include="..\GM.ShopFlow.Order.Infra.Data\GM.ShopFlow.Order.Infra.Data.csproj" />
     <ProjectReference Include="..\GM.ShopFlow.Order.Infra.ExternalServices\GM.ShopFlow.Order.Infra.ExternalServices.csproj" />
   </ItemGroup>

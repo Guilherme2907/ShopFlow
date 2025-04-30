@@ -12,7 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\EventBus\EventBus.csproj" />
+	  <ProjectReference Include="..\GM.ShopFlow.Shared.EventBus\GM.ShopFlow.Shared.EventBus.csproj" />
 	</ItemGroup>
 	
 </Project>

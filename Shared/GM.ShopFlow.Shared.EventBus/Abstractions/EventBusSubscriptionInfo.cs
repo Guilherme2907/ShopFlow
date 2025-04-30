@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization.Metadata;
 using System.Text.Json;
 
-namespace EventBus.Abstractions;
+namespace GM.ShopFlow.Shared.EventBus.Abstractions;
 
 public class EventBusSubscriptionInfo
 {

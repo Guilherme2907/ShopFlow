@@ -14,11 +14,11 @@ using GM.ShopFlow.Product.Infra.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using EventBusRabbitMQ;
-using EventBus.Extensions;
 using System.Text;
 using GM.ShopFlow.Product.Application.IntegrationsEvents.Events;
 using GM.ShopFlow.Product.Application.IntegrationsEvents.EventHandlers;
+using GM.ShopFlow.Shared.EventBus.Extensions;
+using GM.ShopFlow.Shared.EventBusRabbitMQ;
 
 internal class Program
 {

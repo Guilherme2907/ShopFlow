@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\EventBus\EventBus.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\GM.ShopFlow.Shared.EventBus\GM.ShopFlow.Shared.EventBus.csproj" />
     <ProjectReference Include="..\GM.ShopFlow.Product.Domain\GM.ShopFlow.Product.Domain.csproj" />
   </ItemGroup>
 

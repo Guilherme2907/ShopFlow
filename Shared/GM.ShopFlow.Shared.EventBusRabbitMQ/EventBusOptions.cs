@@ -1,4 +1,4 @@
-﻿namespace EventBusRabbitMQ;
+﻿namespace GM.ShopFlow.Shared.EventBusRabbitMQ;
 
 public class EventBusOptions
 {

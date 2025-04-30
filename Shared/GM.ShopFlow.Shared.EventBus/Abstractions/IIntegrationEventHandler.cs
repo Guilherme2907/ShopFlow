@@ -1,6 +1,6 @@
-﻿using EventBus.Events;
+﻿using GM.ShopFlow.Shared.EventBus.Events;
 
-namespace EventBus.Abstractions;
+namespace GM.ShopFlow.Shared.EventBus.Abstractions;
 
 public interface IIntegrationEventHandler<in TIntegrationEvent> : IIntegrationEventHandler
     where TIntegrationEvent : IntegrationEvent

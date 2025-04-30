@@ -1,4 +1,5 @@
-﻿using EventBus.Events;
+﻿
+using GM.ShopFlow.Shared.EventBus.Events;
 
 namespace GM.ShopFlow.Order.Application.IntegrationsEvents.Events;
 

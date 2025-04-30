@@ -1,5 +1,5 @@
-﻿using EventBus.Abstractions;
-using EventBus.Events;
+﻿using GM.ShopFlow.Shared.EventBus.Abstractions;
+using GM.ShopFlow.Shared.EventBus.Events;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -8,7 +8,7 @@ using RabbitMQ.Client.Events;
 using System.Text;
 using System.Text.Json;
 
-namespace EventBusRabbitMQ;
+namespace GM.ShopFlow.Shared.EventBusRabbitMQ;
 
 public class RabbitMQEventBusConsumer(
     IConnection connection,

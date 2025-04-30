@@ -1,8 +1,8 @@
-﻿using EventBus.Abstractions;
-using GM.ShopFlow.Product.Application.IntegrationsEvents.Events;
+﻿using GM.ShopFlow.Product.Application.IntegrationsEvents.Events;
 using GM.ShopFlow.Product.Application.Interfaces;
 using GM.ShopFlow.Product.Domain.Events;
 using GM.ShopFlow.Product.Domain.SeedWork.Repositories;
+using GM.ShopFlow.Shared.EventBus.Abstractions;
 using MediatR;
 
 namespace GM.ShopFlow.Product.Application.DomainEventHandlers;
