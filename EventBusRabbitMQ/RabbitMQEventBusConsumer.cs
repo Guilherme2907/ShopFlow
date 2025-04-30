@@ -71,20 +71,29 @@ public class RabbitMQEventBusConsumer(
 
     private async Task OnMessageReceived(object sender, BasicDeliverEventArgs eventArgs)
     {
-        if (!_subscriptionInfo.EventTypes.TryGetValue(eventArgs.RoutingKey, out var eventType))
-            throw new InvalidOperationException($"Invalid event name {eventArgs.RoutingKey}");
-
-        var body = Encoding.UTF8.GetString(eventArgs.Body.Span);
-
-        var message = DeserializeMessage(body, eventType);
-
-        await using var scope = _serviceProvider.CreateAsyncScope();
-
-        var handlers = scope.ServiceProvider.GetKeyedServices<IIntegrationEventHandler>(eventType);
-
-        foreach (var handler in handlers)
+        try
         {
-            await handler.HandleAsync(message);
+            if (!_subscriptionInfo.EventTypes.TryGetValue(eventArgs.RoutingKey, out var eventType))
+                throw new InvalidOperationException($"Invalid event name {eventArgs.RoutingKey}");
+
+            var body = Encoding.UTF8.GetString(eventArgs.Body.Span);
+
+            var message = DeserializeMessage(body, eventType);
+
+            await using var scope = _serviceProvider.CreateAsyncScope();
+
+            var handlers = scope.ServiceProvider.GetKeyedServices<IIntegrationEventHandler>(eventType);
+
+            foreach (var handler in handlers)
+            {
+                await handler.HandleAsync(message);
+            }
+
+            _consumerChannel.BasicAck(eventArgs.DeliveryTag, false);
+        }
+        catch (Exception)
+        {
+            _consumerChannel.BasicNack(eventArgs.DeliveryTag, false, true);
         }
     }
 
